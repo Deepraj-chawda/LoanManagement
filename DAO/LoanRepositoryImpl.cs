@@ -50,6 +50,7 @@ namespace LoanManagement.DAO
                     string insertQuery = "INSERT INTO Loan ( customer_id, principal_amount, interest_rate, loan_term_months, loan_type, loan_status)" +
                         "values ( @Customer_id, @Principal_amount, @Interest_rate, @Loan_term_months, @Loan_type, @Loan_status)";
                     int status = 0;
+                    
                     using (SqlCommand command = new SqlCommand(insertQuery, connection))
                     {
                            
@@ -69,6 +70,7 @@ namespace LoanManagement.DAO
                     {
                         int loanId;
                         insertQuery = "SELECT loan_id FROM Loan where Customer_id=@CustomerId AND Principal_amount=@PrincipalAmount";
+                    
                         using (SqlCommand command = new SqlCommand(insertQuery, connection))
                         {
                             command.Parameters.AddWithValue("@CustomerId", loan.CustomerId);
@@ -81,6 +83,7 @@ namespace LoanManagement.DAO
                         if (loan.LoanType.Equals("HomeLoan", StringComparison.OrdinalIgnoreCase))
                             {
                                 insertQuery = "INSERT INTO HomeLoan VALUES (@LoanId, @propertyAddress, @propertyValue)";
+                        
                                 using (SqlCommand command = new SqlCommand(insertQuery, connection))
                                 {
                                     command.Parameters.AddWithValue("@LoanId", loanId);
@@ -100,6 +103,7 @@ namespace LoanManagement.DAO
                             else
                             {
                                 insertQuery = "INSERT INTO CarLoan VALUES (@LoanId, @carModel, @carValue)";
+                                
                                 using (SqlCommand command = new SqlCommand(insertQuery, connection))
                                 {
                                     command.Parameters.AddWithValue("@LoanId", loanId);
